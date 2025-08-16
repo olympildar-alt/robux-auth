@@ -14,7 +14,10 @@ app.use(express.json());
 function checkTelegramAuth(data) {
   const secret = crypto.createHash('sha256').update(BOT_TOKEN).digest();
   const { hash, ...fields } = data;
-  const sorted = Object.entries(fields).sort().map(([k, v]) => `${k}=${v}`).join('\n');
+  const sorted = Object.entries(fields)
+    .sort()
+    .map(([k, v]) => `${k}=${v}`)
+    .join('\n');
   const hmac = crypto.createHmac('sha256', secret).update(sorted).digest('hex');
   return hmac === hash;
 }
@@ -39,5 +42,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Сервер запущен на http://localhost:${PORT}`);
+  console.log(`Сервер запущен на порту ${PORT}`);
 });
