@@ -14,10 +14,7 @@ app.use(express.json());
 function checkTelegramAuth(data) {
   const secret = crypto.createHash('sha256').update(BOT_TOKEN).digest();
   const { hash, ...fields } = data;
-  const sorted = Object.entries(fields)
-    .sort()
-    .map(([k, v]) => `${k}=${v}`)
-    .join('\n');
+  const sorted = Object.entries(fields).sort().map(([k, v]) => `${k}=${v}`).join('\n');
   const hmac = crypto.createHmac('sha256', secret).update(sorted).digest('hex');
   return hmac === hash;
 }
@@ -30,7 +27,7 @@ app.get('/auth', (req, res) => {
   const userData = JSON.stringify(req.query);
   const html = `
     <script>
-      localStorage.setItem('tg_user', '${userData}');
+      localStorage.setItem("tg_user", '${userData}');
       window.location.href = "/";
     </script>
   `;
