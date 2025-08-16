@@ -27,7 +27,7 @@ app.get('/auth', (req, res) => {
   const userData = JSON.stringify(req.query);
   const html = `
     <script>
-      localStorage.setItem('tg_user', JSON.stringify(${userData}));
+      localStorage.setItem('tg_user', ${JSON.stringify(userData)});
       window.location.href = "/";
     </script>
   `;
@@ -39,5 +39,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Сервер запущен на http://localhost:${PORT}`);
+  console.log(\`Сервер запущен на http://localhost:\${PORT}\`);
 });
